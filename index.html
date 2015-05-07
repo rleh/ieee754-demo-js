@@ -138,9 +138,19 @@
 			var left_bin_length = left_bin.length;
 
 			// calulate binary representation from right part of dec
-			var right_dec = dec.substring(seperator_index+1, dec.length);
-			var right_bin = "010101"; // (sample value) TODO
-			//var right_bin_length = right_bin.length; // necessary?
+			var right_dec = parseInt("0." + dec.substring(seperator_index+1, dec.length));
+			var right_bin_length = $("#ieee_settings_mant_len").val() - left_bin_length + 1;
+			var right_bin = "";
+			for(var i = 0; i < right_bin_length; i++) {
+				right_dec *= 2;
+				if(right_dec>=1) {
+					right_dec -= 1;
+					right_bin = right_bin + "1";
+				}
+				else {
+					right_bin = right_bin + "0";
+				}
+			}
 
 			// calulate exponent (assuming hidden bit)
 			var exponent = left_bin_length-1;
@@ -151,7 +161,7 @@
 
 			// mantissa
 			var mantissa = (left_bin + right_bin).substring(1);
-			// TODO: länge auf $("#ieee_settings_mant_len").val() bringen (abscheiden/mit 0 auffüllen)
+			// length of mantissa is $("#ieee_settings_mant_len").val()
 
 			// Color td background
 			// sign
