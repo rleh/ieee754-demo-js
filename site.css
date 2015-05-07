@@ -4,8 +4,7 @@ body {
 }
 
 #wrapper {
-	margin: 50pt;
-	margin-top: 0pt;
+	margin: 0 50pt 50pt;
 	border-color: #000000;
 	background-color: #e5e5e5;
 	box-shadow: 10pt 10pt 25pt #000000;
@@ -29,9 +28,9 @@ footer {
 
 .out_ieee_outertable td {
 	border: 2pt solid #333333;
-	margin: 0pt;
-	padding: 0pt;
-	border-spacing: 0pt;
+	margin: 0;
+	padding: 0;
+	border-spacing: 0;
 	border-collapse: collapse;
 	text-align: center;
 }
@@ -45,14 +44,6 @@ footer {
 	height: 15pt;
 	border-spacing: 2pt;
 	border-collapse: separate;
-}
-.out_ieee_innertable td .set{
-	background-color: #111111;
-	color: #ff0000;
-}
-.out_ieee_innertable td .unset{
-	background-color: #eeeeee;
-	color: #0000ff;
 }
 
 #ieee_settings {
