@@ -1,0 +1,73 @@
+body {
+	background-color: #929292;
+	font-family: sans-serif;
+}
+
+#wrapper {
+	margin: 50pt;
+	margin-top: 0pt;
+	border-color: #000000;
+	background-color: #e5e5e5;
+	box-shadow: 10pt 10pt 25pt #000000;
+}
+
+article {
+	padding: 10pt;
+}
+
+header {
+	background-color: black;
+	color: white;
+	padding: 10pt;
+}
+
+footer {
+	text-align: center;
+	background-color: #a5a5a5;
+	padding: 5pt;
+}
+
+.out_ieee_outertable td {
+	border: 2pt solid #333333;
+	margin: 0pt;
+	padding: 0pt;
+	border-spacing: 0pt;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.out_ieee_innertable {
+	border: 1pt solid #000000;
+}
+
+.out_ieee_innertable td {
+	width: 15pt;
+	height: 15pt;
+	border-spacing: 2pt;
+	border-collapse: separate;
+}
+.out_ieee_innertable td .set{
+	background-color: #111111;
+	color: #ff0000;
+}
+.out_ieee_innertable td .unset{
+	background-color: #eeeeee;
+	color: #0000ff;
+}
+
+#ieee_settings {
+	border: 1pt solid #a5a5a5;
+	margin: 5pt;
+}
+#ieee_predefined {
+	border: 1pt solid #a5a5a5;
+	margin: 5pt;
+}
+#in_number {
+	border: 1pt solid #a5a5a5;
+	margin: 5pt;
+}
+#out_ieee {
+	border: 1pt solid #a5a5a5;
+	margin: 5pt;
+}
