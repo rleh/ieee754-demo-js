@@ -19,10 +19,10 @@
 		<br clear="all"/>
 		<div id="ieee_settings">
 			<label for="ieee_settings_mant_len">Mantissa Length</label>
-			<input type="text" id="ieee_settings_mant_len">
+			<input type="text" id="ieee_settings_mant_len" value="23">
 			<br />
 			<label for="ieee_settings_carc_len">Exponent Length</label>
-			<input type="text" id="ieee_settings_carc_len">
+			<input type="text" id="ieee_settings_carc_len" value="8">
 			<br />
 			<label id="ieee_settings_hidden">
 				Hidden Bit
@@ -184,22 +184,31 @@
 				$("#out_ieee_sign_table").find("tbody tr td:nth-child(1)").css("background-color", "#eeeeee");
 			}
 			// characterisic
+			var out_ieee_carc_table = $("#out_ieee_carc_table");
+			out_ieee_carc_table.find("tbody tr").empty();
 			for(var j = 0; j < carc_bin.length; j++) {
+				out_ieee_carc_table.find("tbody tr").append("<td>&nbsp;</td>");
 				if(carc_bin.charAt(j)=="1") {
-					$("#out_ieee_carc_table").find("tbody tr td:nth-child("+(j+1).toString()+")").css("background-color", "#111111");
+					out_ieee_carc_table.find("tbody tr td:nth-child("+(j+1).toString()+")").css("background-color", "#111111");
 				}
 				else {
-					$("#out_ieee_carc_table").find("tbody tr td:nth-child("+(j+1).toString()+")").css("background-color", "#eeeeee");
+					out_ieee_carc_table.find("tbody tr td:nth-child("+(j+1).toString()+")").css("background-color", "#eeeeee");
 				}
 			}
 			// mantissa
+			var out_ieee_mant_table = $("#out_ieee_mant_table");
+			out_ieee_mant_table.find("tbody tr").empty();
 			for(var k = 0; k < mantissa_bin.length; k++) {
+				out_ieee_mant_table.find("tbody tr").append("<td>&nbsp;</td>");
 				if(mantissa_bin.charAt(k)=="1") {
-					$("#out_ieee_mant_table").find("tbody tr td:nth-child("+(k+1).toString()+")").css("background-color", "#111111");
+					out_ieee_mant_table.find("tbody tr td:nth-child("+(k+1).toString()+")").css("background-color", "#111111");
 				}
 				else {
-					$("#out_ieee_mant_table").find("tbody tr td:nth-child("+(k+1).toString()+")").css("background-color", "#eeeeee");
+					out_ieee_mant_table.find("tbody tr td:nth-child("+(k+1).toString()+")").css("background-color", "#eeeeee");
 				}
+			}
+			if(fail) {
+				alert("Error: number to large.")
 			}
 		}
 	</script>
