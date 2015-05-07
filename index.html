@@ -25,17 +25,19 @@
 			<label for="ieee_settings_carc_len">Exponent Length</label>
 			<input type="text" id="ieee_settings_carc_len" value="8">
 			<br />
-			<label id="ieee_settings_hidden">
+			<label for="ieee_settings_hidden">
 				Hidden Bit
-				<input type="checkbox">
+				<input id="ieee_settings_hidden" type="checkbox">
 			</label>
 		</div>
 		<div id="ieee_predefined">
-			<button>IEEE 754 Single Precision (32 Bit)</button>
+			<button id="b_predef_ieee_16">IEEE 754 Half Precision (16 Bit)</button>
 			<br />
-			<button>IEEE 754 Double Precision (64 Bit)</button>
+			<button id="b_predef_ieee_32">IEEE 754 Single Precision (32 Bit)</button>
 			<br />
-			<button>IEEE 754 Extended Precision (80 Bit)</button>
+			<button id="b_predef_ieee_64">IEEE 754 Double Precision (64 Bit)</button>
+			<br />
+			<button id="b_predef_ieee_80">IEEE 754 Extended Precision (80 Bit)</button>
 		</div>
 		<br clear="all"/>
 		<div id="out_ieee">
@@ -111,6 +113,26 @@
 			calcIeee($("#in_number_dec").val());
 		});
 
+		$("#b_predef_ieee_16").click(function () {
+			$("#ieee_settings_mant_len").val("10");
+			$("#ieee_settings_carc_len").val("5");
+			$("#ieee_settings_hidden").prop('checked', true);
+		});
+		$("#b_predef_ieee_32").click(function () {
+			$("#ieee_settings_mant_len").val("23");
+			$("#ieee_settings_carc_len").val("8");
+			$("#ieee_settings_hidden").prop('checked', true);
+		});
+		$("#b_predef_ieee_64").click(function () {
+			$("#ieee_settings_mant_len").val("52");
+			$("#ieee_settings_carc_len").val("11");
+			$("#ieee_settings_hidden").prop('checked', true);
+		});
+		$("#b_predef_ieee_80").click(function () {
+			$("#ieee_settings_mant_len").val("64");
+			$("#ieee_settings_carc_len").val("15");
+			$("#ieee_settings_hidden").prop('checked', true);
+		});
 	</script>
 </div></body>
 </html>
