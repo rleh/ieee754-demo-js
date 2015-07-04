@@ -14,12 +14,9 @@ function calcIeee(dec) {
 		dec = dec.substr(1, dec.length-1);
 	}
 
-	var seperator_index = dec.indexOf(",");
-	if(seperator_index<0){
-		seperator_index = dec.indexOf(".");
-		if(seperator_index<0) {
-			seperator_index = dec.length;
-		}
+	var seperator_index = dec.indexOf(".");
+	if(seperator_index<0) {
+		seperator_index = dec.length;
 	}
 
 	// calculate binary (string) from left part of dec
@@ -63,6 +60,24 @@ function calcIeee(dec) {
 	// mantissa
 	var mantissa_bin = (left_bin + right_bin).substring(1);
 	// length of mantissa is $("#ieee_settings_mant_len").val()
+
+	// hidden bit is not set
+	if((!$("#ieee_settings_hidden").prop("checked"))) {
+		alert("Hidden bit is not set.");
+		mantissa_bin = "1" + mantissa_bin;
+	}
+
+	// special case: number ist zero
+	if(parseFloat(dec)==0) {
+		carc_bin = "";
+		mantissa_bin = "";
+		for(i = 0; i < parseInt($("#ieee_settings_carc_len").val()); i++) {
+			carc_bin += "0";
+		}
+		for(i = 0; i < parseInt($("#ieee_settings_mant_len").val()); i++) {
+			mantissa_bin += "0";
+		}
+	}
 
 	// display number
 	displayIeee(sign, carc_bin, mantissa_bin);
