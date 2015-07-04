@@ -12,46 +12,26 @@
 		<h2>IEEE 754 Floating Point</h2>
 	</header>
 	<article>
-		<div id="in_number">
+		<div id="in_number" style="text-align: center;">
 			<label for="in_number_dec">Decimal number</label>
-			<input type="text" id="in_number_dec">
-			<button id="b_calc_ieee">Calculate IEEE 754</button>
-		</div>
-		<br clear="all"/>
-		<div id="ieee_settings">
-			<label for="ieee_settings_mant_len">Mantissa Length</label>
-			<input type="text" id="ieee_settings_mant_len" value="23">
-			<br />
-			<label for="ieee_settings_carc_len">Exponent Length</label>
-			<input type="text" id="ieee_settings_carc_len" value="8">
-			<br />
-			<label for="ieee_settings_hidden">
-				Hidden Bit
-				<input id="ieee_settings_hidden" type="checkbox" checked>
-			</label>
-		</div>
-		<div id="ieee_predefined">
-			<button id="b_predef_ieee_16">IEEE 754 Half Precision (16 Bit)</button>
-			<br />
-			<button id="b_predef_ieee_32">IEEE 754 Single Precision (32 Bit)</button>
-			<br />
-			<button id="b_predef_ieee_64">IEEE 754 Double Precision (64 Bit)</button>
-			<br />
-			<button id="b_predef_ieee_80">IEEE 754 Extended Precision (80 Bit)</button>
+			<input type="text" id="in_number_dec" style="text-align: center;">
+			<br clear="all"/>
+			<br clear="all"/>
+			<button id="b_calc_ieee" style="width: 100%;">Calculate IEEE 754</button>
 		</div>
 		<br clear="all"/>
 		<div id="out_ieee">
-			<table class="out_ieee_outertable">
+			<table class="out_ieee_outertable" style="width: 100%;">
 				<tr>
 					<td id="out_ieee_sign">
-						<table class="out_ieee_innertable" id="out_ieee_sign_table">
+						<table class="out_ieee_innertable" id="out_ieee_sign_table" style="width: 100%;">
 							<tr>
 								<td class="set">&nbsp;</td>
 							</tr>
 						</table>
 					</td>
 					<td id="out_ieee_exp">
-						<table class="out_ieee_innertable" id="out_ieee_carc_table">
+						<table class="out_ieee_innertable" id="out_ieee_carc_table" style="width: 100%;">
 							<tr>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
@@ -65,7 +45,7 @@
 						</table>
 					</td>
 					<td id="out_ieee_mant">
-						<table class="out_ieee_innertable" id="out_ieee_mant_table">
+						<table class="out_ieee_innertable" id="out_ieee_mant_table" style="width: 100%;">
 							<tr>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
@@ -100,7 +80,37 @@
 					<td>mantissa</td>
 				</tr>
 			</table>
-			<button id="b_calc_dec">Calculate Decimal</button>
+			<br clear="all"/>
+			<button id="b_calc_dec" style="width: 100%;">Calculate Decimal</button>
+		</div>
+		<br clear="all"/>
+		<div id="ieee_settings_container">
+			<div id="ieee_settings">
+				<table style="width: 80%; text-align: center;">
+					<tr>
+						<td><label for="ieee_settings_mant_len">Mantissa Length</label></td>
+						<td><input class="ieee_settings_input" type="text" id="ieee_settings_mant_len" value="23"></td>
+					</tr>
+					<tr>
+						<td><label for="ieee_settings_carc_len">Exponent Length</label></td>
+						<td><input class="ieee_settings_input" type="text" id="ieee_settings_carc_len" value="8"></td>
+					</tr>
+					<tr>
+						<td><label for="ieee_settings_hidden">Hidden Bit</label></td>
+						<td><input id="ieee_settings_hidden" type="checkbox" checked></td>
+					</tr>
+				</table>
+			</div>
+			<div id="ieee_predefined">
+				<button class="b_predef" id="b_predef_ieee_16">IEEE 754 Half Precision (16 Bit)</button>
+				<br />
+				<button class="b_predef" id="b_predef_ieee_32">IEEE 754 Single Precision (32 Bit)</button>
+				<br />
+				<button class="b_predef" id="b_predef_ieee_64">IEEE 754 Double Precision (64 Bit)</button>
+				<br />
+				<button class="b_predef" id="b_predef_ieee_80">IEEE 754 Extended Precision (80 Bit)</button>
+			</div>
+			<br clear="all"/>
 		</div>
 	</article>
 	<footer>
@@ -111,12 +121,12 @@
 
 		$("#b_calc_ieee").click(function() {
 			var val = $("#in_number_dec").val();
-			// match any valid decimal numbers (with ,  or .)
-			if(val.match(/(\+|-)?[0-9]*(\.|,)*[0-9]+/)) {
+			// match any valid (signed) decimal numbers (with ,  or .)
+			if(val.match(/^([+-]?((\d*(\.|,)\d+)|(\d+)))$/)) {
 				calcIeee(val.replace(",", "."));
 			}
 			// match NaN, NaN(g|s), (+|-)Inf case insensitive
-			else if(val.match(/^(\+|-)?(((N|n)a(N|n))(s|q)?|((I|i)nf))$/)) {
+			else if(val.match(/^([+-]?(([Nn]a[Nn])[sq]?|([Ii]nf)))$/)) {
 				calcIeeeSpecial(val.toLowerCase());
 			}
 			else {
@@ -155,7 +165,7 @@
 		// flip ieee table cell bg color on click
 		$(".out_ieee_innertable").find("tbody tr td").click(function () {
 			if($(this).css("background-color") == "rgb(17, 17, 17)") {
-				$(this).css("background-color", "rgb(238, 238, 238)")
+				$(this).css("background-color", "rgb(204, 204, 204)")
 			}
 			else {
 				$(this).css("background-color", "rgb(17, 17, 17)")

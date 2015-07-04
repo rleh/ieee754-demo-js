@@ -47,19 +47,36 @@ footer {
 	border-collapse: separate;
 }
 
-#ieee_settings {
-	border: 1pt solid #a5a5a5;
+#ieee_settings_container {
+	border: 1pt solid #CCCCCC;
+	background-color: #CCCCCC;
+	padding: 15pt;
 	margin: 5pt;
+}
+#ieee_settings {
+	width: 50%;
+	float: left;
 }
 #ieee_predefined {
-	border: 1pt solid #a5a5a5;
-	margin: 5pt;
+	width: 50%;
+	float: left;
+}
+.b_predef {
+	width: 100%;
+}
+.ieee_settings_input  {
+	text-align: center;
+	width: 100pt;
 }
 #in_number {
-	border: 1pt solid #a5a5a5;
+	border: 1pt solid #CCCCCC;
+	background-color: #CCCCCC;
+	padding: 15px;
 	margin: 5pt;
 }
 #out_ieee {
-	border: 1pt solid #a5a5a5;
+	border: 1pt solid #CCCCCC;
+	background-color: #CCCCCC;
+	padding: 15px;
 	margin: 5pt;
 }

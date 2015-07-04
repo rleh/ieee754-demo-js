@@ -63,7 +63,7 @@ function calcIeee(dec) {
 
 	// hidden bit is not set
 	if((!$("#ieee_settings_hidden").prop("checked"))) {
-		mantissa_bin = "1" + mantissa_bin;
+		mantissa_bin = "1" + mantissa_bin.slice(0, -1);
 	}
 
 	// special case: number ist zero
@@ -92,7 +92,7 @@ function displayIeee(sign, carc_bin, mantissa_bin) {// Color td background
 		$("#out_ieee_sign_table").find("tbody tr td:nth-child(1)").css("background-color", "#111111");
 	}
 	else {
-		$("#out_ieee_sign_table").find("tbody tr td:nth-child(1)").css("background-color", "#eeeeee");
+		$("#out_ieee_sign_table").find("tbody tr td:nth-child(1)").css("background-color", "#cccccc");
 	}
 	// characterisic
 	var out_ieee_carc_table = $("#out_ieee_carc_table");
@@ -103,7 +103,7 @@ function displayIeee(sign, carc_bin, mantissa_bin) {// Color td background
 			out_ieee_carc_table.find("tbody tr td:nth-child("+(j+1).toString()+")").css("background-color", "#111111");
 		}
 		else {
-			out_ieee_carc_table.find("tbody tr td:nth-child("+(j+1).toString()+")").css("background-color", "#eeeeee");
+			out_ieee_carc_table.find("tbody tr td:nth-child("+(j+1).toString()+")").css("background-color", "#cccccc");
 		}
 	}
 	// mantissa
@@ -115,7 +115,7 @@ function displayIeee(sign, carc_bin, mantissa_bin) {// Color td background
 			out_ieee_mant_table.find("tbody tr td:nth-child("+(k+1).toString()+")").css("background-color", "#111111");
 		}
 		else {
-			out_ieee_mant_table.find("tbody tr td:nth-child("+(k+1).toString()+")").css("background-color", "#eeeeee");
+			out_ieee_mant_table.find("tbody tr td:nth-child("+(k+1).toString()+")").css("background-color", "#cccccc");
 		}
 	}
 }
@@ -161,7 +161,7 @@ function calcIeeeSpecial(str) {
 	var i;
 
 	// NaNq = NaN
-	if(str.match(/^(\+|-)?((N|n)a(N|n))q?$/)) {
+	if(str.match(/^([+-]?([Nn]a[Nn])q?)$/)) {
 		if(str.charAt(0)=='-') {
 			sign = 1;
 		}
@@ -179,7 +179,7 @@ function calcIeeeSpecial(str) {
 		//mantissa_bin = "1".repeat(parseInt($("#ieee_settings_mant_len").val()));
 	}
 	// NaNs
-	else if(str.match(/^(\+|-)?(N|n)a(N|n)s$/)) {
+	else if(str.match(/^[+-]?[Nn]a[Nn]s$/)) {
 		if(str.charAt(0)=='-') {
 			sign = 1;
 		}
