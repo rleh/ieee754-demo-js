@@ -110,7 +110,19 @@
 	<script type="text/javascript">
 
 		$("#b_calc_ieee").click(function() {
-			calcIeee($("#in_number_dec").val());
+			var val = $("#in_number_dec").val();
+			// match any valid decimal numbers (with ,  or .)
+			if(val.match(/(\+|-)?[0-9]*(\.|,)*[0-9]+/)) {
+				calcIeee(val.replace(",", "."));
+			}
+			// match NaN, NaN(g|s), (+|-)Inf case insensitive
+			else if(val.match(/^(\+|-)?(((N|n)a(N|n))(s|q)?|((I|i)nf))$/)) {
+				calcIeeeSpecial(val.toLowerCase());
+				//alert("Special Number");
+			}
+			else {
+				alert("Please enter a valid decimal number.")
+			}
 		});
 
 		$("#b_predef_ieee_16").click(function () {

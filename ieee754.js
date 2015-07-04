@@ -64,7 +64,15 @@ function calcIeee(dec) {
 	var mantissa_bin = (left_bin + right_bin).substring(1);
 	// length of mantissa is $("#ieee_settings_mant_len").val()
 
-	// Color td background
+	// display number
+	displayIeee(sign, carc_bin, mantissa_bin);
+
+	if(fail) {
+		alert("Error: number to large.")
+	}
+}
+
+function displayIeee(sign, carc_bin, mantissa_bin) {// Color td background
 	// sign
 	if(sign==1) {
 		$("#out_ieee_sign_table").find("tbody tr td:nth-child(1)").css("background-color", "#111111");
@@ -96,7 +104,64 @@ function calcIeee(dec) {
 			out_ieee_mant_table.find("tbody tr td:nth-child("+(k+1).toString()+")").css("background-color", "#eeeeee");
 		}
 	}
-	if(fail) {
-		alert("Error: number to large.")
+}
+
+function calcIeeeSpecial(str) {
+	var sign;
+	var carc_bin = "";
+	var mantissa_bin = "";
+	var i;
+
+	// NaNq = NaN
+	if(str.match(/^(\+|-)?((N|n)a(N|n))q?$/)) {
+		if(str.charAt(0)=='-') {
+			sign = 1;
+		}
+		else {
+			sign = 0;
+		}
+		for(i = 0; i < parseInt($("#ieee_settings_carc_len").val()); i++) {
+			carc_bin += "1";
+		}
+		for(i = 0; i < parseInt($("#ieee_settings_mant_len").val()); i++) {
+			mantissa_bin += "1";
+		}
+		// ES6:
+		//carc_bin = "1".repeat(parseInt($("#ieee_settings_carc_len").val()));
+		//mantissa_bin = "1".repeat(parseInt($("#ieee_settings_mant_len").val()));
 	}
+	// NaNs
+	else if(str.match(/^(\+|-)?(N|n)a(N|n)s$/)) {
+		if(str.charAt(0)=='-') {
+			sign = 1;
+		}
+		else {
+			sign = 0;
+		}
+		for(i = 1; i < parseInt($("#ieee_settings_carc_len").val()); i++) {
+			carc_bin += "1";
+		}
+		carc_bin += "0";
+		for(i = 0; i < parseInt($("#ieee_settings_mant_len").val()); i++) {
+			mantissa_bin += "1";
+		}
+	}
+	// Inf
+	else {
+		if(str.charAt(0)=='-') {
+			sign = 1;
+		}
+		else {
+			sign = 0;
+		}
+		for(i = 0; i < parseInt($("#ieee_settings_carc_len").val()); i++) {
+			carc_bin += "1";
+		}
+		for(i = 0; i < parseInt($("#ieee_settings_mant_len").val()); i++) {
+			mantissa_bin += "0";
+		}
+	}
+
+	// display number
+	displayIeee(sign, carc_bin, mantissa_bin);
 }
