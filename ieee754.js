@@ -213,3 +213,25 @@ function calcIeeeSpecial(str) {
 	// display number
 	displayIeee(sign, carc_bin, mantissa_bin);
 }
+
+function calcDec(sign, carc_bin, mantissa_bin) {
+	// characterisic / exponent
+	// C =  E + (2^7 - 1)
+	var exp = parseInt(carc_bin, 2);
+	exp = exp - Math.pow(2, parseInt($("#ieee_settings_carc_len").val())-1) + 1;
+	// mantissa
+	var num = 1;
+	for (var i = 0; i < mantissa_bin.length; i++) {
+		if(mantissa_bin.charAt(i) == '1') {
+			num += (1/Math.pow(2, i+1));
+		}
+	}
+	num = num * Math.pow(2, exp);
+	// sign == 1: negative
+	if(sign==1) {
+		return -num;
+	}
+	else {
+		return num;
+	}
+}

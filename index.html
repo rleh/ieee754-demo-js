@@ -118,7 +118,6 @@
 			// match NaN, NaN(g|s), (+|-)Inf case insensitive
 			else if(val.match(/^(\+|-)?(((N|n)a(N|n))(s|q)?|((I|i)nf))$/)) {
 				calcIeeeSpecial(val.toLowerCase());
-				//alert("Special Number");
 			}
 			else {
 				alert("Please enter a valid decimal number.")
@@ -144,6 +143,24 @@
 			$("#ieee_settings_mant_len").val("64");
 			$("#ieee_settings_carc_len").val("15");
 			$("#ieee_settings_hidden").prop('checked', true);
+		});
+		// Calculate decimal from ieee number
+		$("#b_calc_dec").click(function () {
+			var ieee = readIeee();
+			var sign = ieee["sign"];
+			var carc = ieee["carc"];
+			var mant = ieee["mant"];
+			$("#in_number_dec").val(calcDec(sign, carc, mant));
+		});
+		// flip ieee table cell bg color on click
+		$(".out_ieee_innertable").find("tbody tr td").click(function () {
+			if($(this).css("background-color") == "rgb(17, 17, 17)") {
+				$(this).css("background-color", "rgb(238, 238, 238)")
+			}
+			else {
+				$(this).css("background-color", "rgb(17, 17, 17)")
+			}
+
 		});
 	</script>
 </div></body>

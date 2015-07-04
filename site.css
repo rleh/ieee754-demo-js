@@ -37,6 +37,7 @@ footer {
 
 .out_ieee_innertable {
 	border: 1pt solid #000000;
+	cursor: pointer;
 }
 
 .out_ieee_innertable td {
