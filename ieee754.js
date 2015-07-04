@@ -63,7 +63,6 @@ function calcIeee(dec) {
 
 	// hidden bit is not set
 	if((!$("#ieee_settings_hidden").prop("checked"))) {
-		alert("Hidden bit is not set.");
 		mantissa_bin = "1" + mantissa_bin;
 	}
 
