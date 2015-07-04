@@ -98,7 +98,7 @@ function displayIeee(sign, carc_bin, mantissa_bin) {// Color td background
 	var out_ieee_carc_table = $("#out_ieee_carc_table");
 	out_ieee_carc_table.find("tbody tr").empty();
 	for(var j = 0; j < carc_bin.length; j++) {
-		out_ieee_carc_table.find("tbody tr").append("<td>&nbsp;</td>");
+		out_ieee_carc_table.find("tbody tr").append("<td onclick='flipColor(this)'>&nbsp;</td>");
 		if(carc_bin.charAt(j)=="1") {
 			out_ieee_carc_table.find("tbody tr td:nth-child("+(j+1).toString()+")").css("background-color", "#111111");
 		}
@@ -110,7 +110,7 @@ function displayIeee(sign, carc_bin, mantissa_bin) {// Color td background
 	var out_ieee_mant_table = $("#out_ieee_mant_table");
 	out_ieee_mant_table.find("tbody tr").empty();
 	for(var k = 0; k < mantissa_bin.length; k++) {
-		out_ieee_mant_table.find("tbody tr").append("<td>&nbsp;</td>");
+		out_ieee_mant_table.find("tbody tr").append("<td onclick='flipColor(this)'>&nbsp;</td>");
 		if(mantissa_bin.charAt(k)=="1") {
 			out_ieee_mant_table.find("tbody tr td:nth-child("+(k+1).toString()+")").css("background-color", "#111111");
 		}
@@ -233,5 +233,30 @@ function calcDec(sign, carc_bin, mantissa_bin) {
 	}
 	else {
 		return num;
+	}
+}
+
+// flip ieee table cell bg color on click
+function flipColor(e) {
+	if($(e).css("background-color") == "rgb(17, 17, 17)") {
+		$(e).css("background-color", "rgb(204, 204, 204)")
+	}
+	else {
+		$(e).css("background-color", "rgb(17, 17, 17)")
+	}
+}
+
+
+function calcClick(val) {
+	// match any valid (signed) decimal numbers (with ,  or .)
+	if(val.match(/^([+-]?((\d*(\.|,)\d+)|(\d+)))$/)) {
+		calcIeee(val.replace(",", "."));
+	}
+	// match NaN, NaN(g|s), (+|-)Inf case insensitive
+	else if(val.match(/^([+-]?(([Nn]a[Nn])[sq]?|([Ii]nf)))$/)) {
+		calcIeeeSpecial(val.toLowerCase());
+	}
+	else {
+		alert("Please enter a valid decimal number.")
 	}
 }

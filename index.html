@@ -118,41 +118,32 @@
 		<p><a href="http://git.io/vJbOo">Visit on Github</a></p>
 	</footer>
 	<script type="text/javascript">
-
-		$("#b_calc_ieee").click(function() {
-			var val = $("#in_number_dec").val();
-			// match any valid (signed) decimal numbers (with ,  or .)
-			if(val.match(/^([+-]?((\d*(\.|,)\d+)|(\d+)))$/)) {
-				calcIeee(val.replace(",", "."));
-			}
-			// match NaN, NaN(g|s), (+|-)Inf case insensitive
-			else if(val.match(/^([+-]?(([Nn]a[Nn])[sq]?|([Ii]nf)))$/)) {
-				calcIeeeSpecial(val.toLowerCase());
-			}
-			else {
-				alert("Please enter a valid decimal number.")
-			}
+		$("#b_calc_ieee").click(function () {
+			calcClick($("#in_number_dec").val());
 		});
-
 		$("#b_predef_ieee_16").click(function () {
 			$("#ieee_settings_mant_len").val("10");
 			$("#ieee_settings_carc_len").val("5");
 			$("#ieee_settings_hidden").prop('checked', true);
+			calcClick($("#in_number_dec").val());
 		});
 		$("#b_predef_ieee_32").click(function () {
 			$("#ieee_settings_mant_len").val("23");
 			$("#ieee_settings_carc_len").val("8");
 			$("#ieee_settings_hidden").prop('checked', true);
+			calcClick($("#in_number_dec").val());
 		});
 		$("#b_predef_ieee_64").click(function () {
 			$("#ieee_settings_mant_len").val("52");
 			$("#ieee_settings_carc_len").val("11");
 			$("#ieee_settings_hidden").prop('checked', true);
+			calcClick($("#in_number_dec").val());
 		});
 		$("#b_predef_ieee_80").click(function () {
 			$("#ieee_settings_mant_len").val("64");
 			$("#ieee_settings_carc_len").val("15");
 			$("#ieee_settings_hidden").prop('checked', true);
+			calcClick($("#in_number_dec").val());
 		});
 		// Calculate decimal from ieee number
 		$("#b_calc_dec").click(function () {
@@ -164,13 +155,7 @@
 		});
 		// flip ieee table cell bg color on click
 		$(".out_ieee_innertable").find("tbody tr td").click(function () {
-			if($(this).css("background-color") == "rgb(17, 17, 17)") {
-				$(this).css("background-color", "rgb(204, 204, 204)")
-			}
-			else {
-				$(this).css("background-color", "rgb(17, 17, 17)")
-			}
-
+			flipColor(this);
 		});
 	</script>
 </div></body>
