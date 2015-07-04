@@ -120,6 +120,40 @@ function displayIeee(sign, carc_bin, mantissa_bin) {// Color td background
 	}
 }
 
+function readIeee() {
+	var ret = [];
+	var i;
+	//alert($("#out_ieee_sign_table").find("tbody tr td:nth-child(1)").css("background-color"));
+	// sign
+	if($("#out_ieee_sign_table").find("tbody tr td:nth-child(1)").css("background-color") == "rgb(17, 17, 17)") {
+		ret["sign"] = 1;
+	}
+	else {
+		ret["sign"] = 0;
+	}
+	// characterisic
+	ret["carc"] = "";
+	for(i = 0; i < parseInt($("#ieee_settings_carc_len").val()); i++) {
+		if($("#out_ieee_carc_table").find("tbody tr td:nth-child("+(i+1).toString()+")").css("background-color") == "rgb(17, 17, 17)") {
+			ret["carc"] += "1";
+		}
+		else {
+			ret["carc"] += "0";
+		}
+	}
+	// mantissa
+	ret["mant"] = "";
+	for(i = 0; i < parseInt($("#ieee_settings_mant_len").val()); i++) {
+		if($("#out_ieee_mant_table").find("tbody tr td:nth-child("+(i+1).toString()+")").css("background-color") == "rgb(17, 17, 17)") {
+			ret["mant"] += "1";
+		}
+		else {
+			ret["mant"] += "0";
+		}
+	}
+	return ret;
+}
+
 function calcIeeeSpecial(str) {
 	var sign;
 	var carc_bin = "";
