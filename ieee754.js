@@ -123,7 +123,6 @@ function displayIeee(sign, carc_bin, mantissa_bin) {// Color td background
 function readIeee() {
 	var ret = [];
 	var i;
-	//alert($("#out_ieee_sign_table").find("tbody tr td:nth-child(1)").css("background-color"));
 	// sign
 	if($("#out_ieee_sign_table").find("tbody tr td:nth-child(1)").css("background-color") == "rgb(17, 17, 17)") {
 		ret["sign"] = 1;
@@ -215,12 +214,29 @@ function calcIeeeSpecial(str) {
 }
 
 function calcDec(sign, carc_bin, mantissa_bin) {
+	var num;
+	// special cases: [+-]?NaN[sq]?, [+-]?Inf
+	var sign_c = "";
+	if(sign == 1) {
+		sign_c = "-";
+	}
+	// NaNq
+	if(carc_bin.match(/^1+$/) && mantissa_bin.match(/^1+$/)) {
+		return sign_c + "NaN";
+	}
+	// NaNs
+	else if(carc_bin.match(/^1+0$/) && mantissa_bin.match(/^1+$/)) {
+		return sign_c + "NaNs";
+	}
+	else if(carc_bin.match(/^1+$/) && mantissa_bin.match(/^0+$/)){
+		return sign_c + "Inf";
+	}
 	// characterisic / exponent
 	// C =  E + (2^7 - 1)
 	var exp = parseInt(carc_bin, 2);
 	exp = exp - Math.pow(2, parseInt($("#ieee_settings_carc_len").val())-1) + 1;
 	// mantissa
-	var num = 1;
+	num = 1;
 	for (var i = 0; i < mantissa_bin.length; i++) {
 		if(mantissa_bin.charAt(i) == '1') {
 			num += (1/Math.pow(2, i+1));
@@ -253,7 +269,7 @@ function calcClick(val) {
 		calcIeee(val.replace(",", "."));
 	}
 	// match NaN, NaN(g|s), (+|-)Inf case insensitive
-	else if(val.match(/^([+-]?(([Nn]a[Nn])[sq]?|([Ii]nf)))$/)) {
+	else if(val.match(/^([+-]?(([Nn]a[Nn])[sq]?|([Ii]nf(inity)?)))$/)) {
 		calcIeeeSpecial(val.toLowerCase());
 	}
 	else {
