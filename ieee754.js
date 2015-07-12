@@ -229,10 +229,10 @@ function calcDec(sign, carc_bin, mantissa_bin) {
 	num = num * Math.pow(2, exp);
 	// sign == 1: negative
 	if(sign==1) {
-		return -num;
+		return floatToNonSciString(-num);
 	}
 	else {
-		return num;
+		return floatToNonSciString(num);
 	}
 }
 
@@ -259,4 +259,28 @@ function calcClick(val) {
 	else {
 		alert("Please enter a valid decimal number.")
 	}
+}
+
+// Float Number to string (avoid scientific notation)
+function floatToNonSciString(num) {
+	var str = num.toString();
+	if(str.indexOf("e") > -1) {
+		return num.toFixed(getPrecision(str));
+	}
+	else {
+		return str;
+	}
+}
+
+function getPrecision(num) {
+	var arr = [];
+	// Get abs(exponent after 'e')
+	arr = num.split('e');
+	var exponent = Math.abs(arr[1]);
+	// Add to it the number of digits between the '.' and the 'e'
+	// to give our required precision.
+	var precision = new Number(exponent);
+	arr = arr[0].split('.');
+	precision += arr[1].length;
+	return precision;
 }
