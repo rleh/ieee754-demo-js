@@ -245,10 +245,10 @@ function calcDec(sign, carc_bin, mantissa_bin) {
 	num = num * Math.pow(2, exp);
 	// sign == 1: negative
 	if(sign==1) {
-		return floatToNonSciString(-num);
+		return (-num).toDigits();
 	}
 	else {
-		return floatToNonSciString(num);
+		return (num).toDigits();
 	}
 }
 
@@ -278,25 +278,24 @@ function calcClick(val) {
 }
 
 // Float Number to string (avoid scientific notation)
-function floatToNonSciString(num) {
-	var str = num.toString();
-	if(str.indexOf("e") > -1) {
-		return num.toFixed(getPrecision(str));
+Number.prototype.toDigits = function() {
+	var tmp = '';
+	var exponent;
+	var frac_part;
+	var str = this.toString();
+	// Match number in scientific notation:
+	var x = str.match(/^(\d+)\.(\d+)[eE]([-+]?)(\d+)$/);
+	if(x){
+		frac_part = x[2];
+		exponent = (x[3]== '-') ? x[4]-1 : x[4]-frac_part.length;
+		while (exponent--) {
+			tmp += '0';
+		}
+		if (x[3] == '-') {
+			return '0.' + tmp + x[1] + frac_part;
+		}
+		return x[1]+d+tmp;
 	}
-	else {
-		return str;
-	}
+	return str;
 }
 
-function getPrecision(num) {
-	var arr = [];
-	// Get abs(exponent after 'e')
-	arr = num.split('e');
-	var exponent = Math.abs(arr[1]);
-	// Add to it the number of digits between the '.' and the 'e'
-	// to give our required precision.
-	var precision = new Number(exponent);
-	arr = arr[0].split('.');
-	precision += arr[1].length;
-	return precision;
-}
